@@ -69,4 +69,11 @@ public class MyQueue {
     public int getSize() {
         return values.size();
     }
+
+    @Override
+    public String toString() {
+        return "MyQueue{" +
+                "values=" + values +
+                '}';
+    }
 }

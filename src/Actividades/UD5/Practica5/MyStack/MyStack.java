@@ -66,4 +66,10 @@ public class MyStack {
         return values.size();
     }
 
+    @Override
+    public String toString() {
+        return "MyStack{" +
+                "values=" + values +
+                '}';
+    }
 }
