@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyStack {
-    /**
-     * Igual que con la cola, usaremos las ArrayList.
-     */
+
     List<Object> values = new ArrayList<>();
     public MyStack() {}
 

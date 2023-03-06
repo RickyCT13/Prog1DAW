@@ -5,9 +5,6 @@ import java.util.List;
 
 public class MyQueue {
 
-    /**
-     * La cola usará un ArrayList como tipo de datos. Si quisiéramos, podríamos utilizar el polimorfismo para elegir entre distintos tipos de listas, pero el elemento de interés suele ser el primero que se añade. Tampoco vamos a usar un array común, por la limitación de tamaño.
-     */
     List<Object> values = new ArrayList<>();
     public MyQueue() {}
 
