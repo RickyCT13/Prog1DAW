@@ -3,13 +3,41 @@ package Actividades.UD6.Excepciones;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        //tryAndCatch();
+        /*
+         tryAndCatch();
+         handleIOs();
+        */
+        noDuplicates();
+    }
+
+    private static void noDuplicates() {
         try {
-            readFromPath("Actividades/UD6/Excepciones/hola.txt");
+            List<Integer> myList = new ArrayList<>();
+            addTolist(myList,1);
+            addTolist(myList,2);
+            addTolist(myList,2);
+            System.out.println("A");
+        }
+        catch (ElementAlreadyInListException ex) {
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        catch (IllegalArgumentException ia) {
+            System.err.println("huh?");
+        }
+        finally {
+            System.out.println("Fin.");
+        }
+    }
+
+    private static void handleIOs() {
+        try {
+            readFromPath("/Users/1DAW_2223_11/IdeaProjects/Prog 1DAW/src/Actividades/UD6/Excepciones/hola.txt");
         }
         catch (FileNotFoundException ex) {
             System.out.println("Error: Archivo no encontrado");
@@ -68,8 +96,12 @@ public class Main {
      Método que meta un número en una lista, y si ya se encuentra
      en esta, que lance una IllegalArgumentException.
      */
-    private static void addTolist(List<Integer> list, Integer element) {
-
+    private static void addTolist(List<Integer> list, Integer element) throws ElementAlreadyInListException {
+        if (list.contains(element)) {
+            throw new ElementAlreadyInListException("Este elemento ya está en la lista!");
+        }
+        else list.add(element);
     }
 
 }
+
