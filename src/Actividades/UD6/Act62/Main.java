@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         printReverseFrom(10);
         System.out.println(naturalSum(7));
-        System.out.println(fibonacci(13));
+        System.out.println(fibonacci(7));
         System.out.println(mcd(234, 543));
     }
 
