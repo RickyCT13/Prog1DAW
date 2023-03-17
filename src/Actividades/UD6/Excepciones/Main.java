@@ -65,7 +65,7 @@ public class Main {
         try {
             int a = 5;
             int b = 0;
-            System.out.println("El resultado es : " + divide(a, b));
+            System.out.println("El resultado es : " + division(a, b));
         }
         catch (ArithmeticException ex) {
             System.out.println("Imposible dividir por 0.");
@@ -82,7 +82,7 @@ public class Main {
         }
     }
 
-    private static int divide(int dividend, int divider) throws ArithmeticException {
+    private static int division(int dividend, int divider) throws ArithmeticException {
         return (dividend / divider);
     }
 
