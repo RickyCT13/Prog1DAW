@@ -12,13 +12,13 @@ public abstract class DivideAndConquer {
             solution = solveBaseCase(problem);
         }
         else {
-            subproblems = divide(problem);
+            // subproblems = divide(problem);
             size = subproblems.length;
             subsolutions = new int[size][];
             for (i = 1; i <= size; i++) {
                 subsolutions[i] = subproblems[i];
             }
-            solution = combine(subsolutions);
+            // solution = combine(subsolutions);
         }
     }
 
