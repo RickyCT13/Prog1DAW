@@ -1,11 +1,11 @@
 package Actividades.UD5.Practica5.MyQueue;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MyQueue {
 
-    List<Object> values = new ArrayList<>();
+    List<Object> values = new LinkedList<>();
     public MyQueue() {}
 
     /**

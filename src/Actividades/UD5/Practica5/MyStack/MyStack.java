@@ -1,11 +1,11 @@
 package Actividades.UD5.Practica5.MyStack;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MyStack {
 
-    List<Object> values = new ArrayList<>();
+    List<Object> values = new LinkedList<>();
     public MyStack() {}
 
     /**
