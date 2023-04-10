@@ -11,6 +11,8 @@ public class ActFlujos {
         Scanner scanInput = new Scanner(System.in);
         System.out.println("Introduzca 3 caracteres:");
         String[] chars = scanInput.nextLine().split("\s");
-
+        System.out.write(chars[0].getBytes());
+        System.out.print(chars[1]);
+        System.out.println(chars[2]);
     }
 }
