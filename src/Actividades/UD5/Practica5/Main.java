@@ -41,7 +41,7 @@ public class Main {
 
         // Añadimos un nuevo libro a la pila
         bookStack.stack(new Book("Structured Query Language Guide", "John Doe", 12.35));
-        // Ahora, el libro en la cima sera el que hemos añadido
+        // Ahora, el libro en la cima será el que hemos añadido
         System.out.println(bookStack.top());
 
         // Para quitar "Java for dummies", tenemos que quitarle de encima otros libros primero, en este caso 1.
