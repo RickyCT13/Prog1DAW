@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MyQueue {
 
-    List<Object> values = new LinkedList<>();
+    private List values = new LinkedList();
     public MyQueue() {}
 
     /**

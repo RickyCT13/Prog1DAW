@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MyStack {
 
-    List<Object> values = new LinkedList<>();
+    private List values = new LinkedList();
     public MyStack() {}
 
     /**
