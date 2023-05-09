@@ -4,6 +4,7 @@ package Actividades.UD7.SimulacroPractica7;
 public class Estudiante implements Comparable {
     private String nombre;
     private int participaciones;
+    private boolean canParticipate = true;
 
     public Estudiante() {}
 
@@ -16,16 +17,24 @@ public class Estudiante implements Comparable {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public int getParticipaciones() {
         return participaciones;
     }
 
+    public boolean getCanParticipate() {
+        return canParticipate;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public void setParticipaciones(int participaciones) {
         this.participaciones = participaciones;
+    }
+
+    public void setCanParticipate(boolean canParticipate) {
+        this.canParticipate = canParticipate;
     }
 
 
