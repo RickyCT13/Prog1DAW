@@ -1,4 +1,4 @@
-package Actividades.UD7.SimulacroPractica7;
+package Actividades.UD7.Practica7;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,34 +9,40 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class InterfazTexto {
+public class TextInterface {
     private static Scanner scanner;
-    private List<Estudiante> listaEstudiantes;
+    private List<Student> studentList;
 
     public void mainMenu() throws IOException, ParserConfigurationException, SAXException, TransformerException {
         scanner = new Scanner(System.in);
-        String inicio = "Escoja una opción introuduciendo su número correspondiente:" + "\n" +
+        String start = "Escoja una opción introuduciendo su número correspondiente:" + "\n" +
                 "1. Importar un fichero XML" + "\n" +
                 "2. Exportar a un fichero XML" + "\n" +
                 "3. Seleccionar un alumno aleatoriamente" + "\n" +
+                "4. Reiniciar todas las participaciones a 0" + "\n" +
                 "5. Mostrar participaciones de los estudiantes" + "\n" +
                 "6. Salir" + "\n" +
                 "->";
-        System.out.print(inicio);
+        System.out.print(start);
         int input = scanner.nextInt();
         while (input != 6) {
-            opciones(input);
-            System.out.print(inicio);
+            options(input);
+            System.out.print(start);
             input = scanner.nextInt();
         }
     }
 
-    public void opciones(int input) throws IOException, ParserConfigurationException, SAXException, TransformerException {
+    public void options(int input) throws IOException, ParserConfigurationException, SAXException, TransformerException {
         switch(input) {
             case 1:
                 System.out.println("Introduzca la ruta al fichero: ");
@@ -56,7 +62,7 @@ public class InterfazTexto {
                 System.out.println("Todas las participaciones han sido reiniciadas a 0.");
                 break;
             case 5:
-                System.out.println(listaEstudiantes);
+                System.out.println(studentList);
             case 6:
                 break;
         }
@@ -66,22 +72,22 @@ public class InterfazTexto {
     public void importXML(String filePath) throws IOException, SAXException, ParserConfigurationException {
         // TODO: Implementar importación de XML para manejar los datos
         File file = new File(filePath);
-        listaEstudiantes = new LinkedList<>();
+        studentList = new LinkedList<>();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(file);
         doc.getDocumentElement();
         NodeList nList = doc.getElementsByTagName("alumno");
         for (int i = 0; i < nList.getLength(); i++) {
-            Node nodoEstudiante = nList.item(i);
-            if (nodoEstudiante.getNodeType() == Node.ELEMENT_NODE) {
-                Element elementoEst = (Element) nodoEstudiante;
-                String nombre = elementoEst.getElementsByTagName("nombre").item(0).getTextContent();
-                int participaciones = Integer.parseInt(elementoEst.getElementsByTagName("intervenciones").item(0).getTextContent());
-                listaEstudiantes.add(new Estudiante(nombre, participaciones));
+            Node studentNode = nList.item(i);
+            if (studentNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element stElement = (Element) studentNode;
+                String name = stElement.getElementsByTagName("nombre").item(0).getTextContent();
+                int participations = Integer.parseInt(stElement.getElementsByTagName("intervenciones").item(0).getTextContent());
+                studentList.add(new Student(name, participations));
             }
         }
-        if (!listaEstudiantes.isEmpty()) {
+        if (!studentList.isEmpty()) {
             System.out.println("Documento importado con éxito.");
         }
 
@@ -94,11 +100,36 @@ public class InterfazTexto {
 
         document.setXmlVersion("1.0");
 
+        studentList.sort(Student::compareName);
         Element daw1 = document.createElement("daw1");
         document.appendChild(daw1);
 
+        for (Student est:
+                studentList) {
 
+            Element alumno = document.createElement("alumno");
+            daw1.appendChild(alumno);
 
+            Element nombre = document.createElement("nombre");
+            nombre.appendChild(document.createTextNode(est.getName()));
+            daw1.appendChild(nombre);
+
+            Element intervenciones = document.createElement("intervenciones");
+            intervenciones.appendChild(document.createTextNode(String.valueOf(est.getParticipations())));
+            daw1.appendChild(intervenciones);
+        }
+
+        DOMSource domSource = new DOMSource(document);
+
+        StreamResult result = new StreamResult(new File(filePath));
+
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        transformer.transform(domSource, result);
+
+        System.out.println("Exportación exitosa!");
     }
 
     public void selectStudent() {
@@ -106,40 +137,40 @@ public class InterfazTexto {
         //  el número de participaciones y escoger aquellos con un nº
         //  menor. En caso de empate, seleccionar aleatoriamente.
         try {
-            listaEstudiantes.sort(Estudiante::compareTo);
-            ListIterator<Estudiante> lit = listaEstudiantes.listIterator();
+            studentList.sort(Student::compareTo);
+            ListIterator<Student> lit = studentList.listIterator();
             while (lit.hasNext()) {
                 if (!lit.next().getCanParticipate()) {
                     continue;
                 }
                 System.out.print("El alumno seleccionado es: ");
-                Estudiante candidato = lit.next();
-                System.out.println(candidato.getNombre());
+                Student candidate = lit.next();
+                System.out.println(candidate.getName());
                 System.out.println("¿Este estudiante puede participar? (S/N)");
-                String respuesta = scanner.next();
-                if (respuesta.equalsIgnoreCase("S")) {
+                String reply = scanner.next();
+                if (reply.equalsIgnoreCase("S")) {
                     System.out.println("Entendido. Se le dará un punto de participación al alumno seleccionado.");
-                    candidato.setParticipaciones(candidato.getParticipaciones() + 1);
-                    listaEstudiantes.sort(Estudiante::compareTo);
+                    candidate.setParticipations(candidate.getParticipations() + 1);
+                    studentList.sort(Student::compareTo);
                     break;
-                } else if (respuesta.equalsIgnoreCase("N")) {
+                } else if (reply.equalsIgnoreCase("N")) {
                     System.out.println("Entendido. No se tendrá en cuenta este estudiante en la participación por el resto de la clase.");
-                    candidato.setCanParticipate(false);
+                    candidate.setCanParticipate(false);
                     System.out.println("Seleccionando a otro alumno...");
-                    listaEstudiantes.sort(Estudiante::compareTo);
+                    studentList.sort(Student::compareTo);
                 }
             }
         }
         catch (NoSuchElementException end) {
-            System.out.println("No hay.");
+            System.out.println("¡No hay estudiantes que puedan participar!");
         }
     }
 
     public void resetToZero() {
         // TODO: Reiniciar las participaciones de todos
         //  los alumnos a cero.
-        for (Estudiante est : listaEstudiantes) {
-            est.setParticipaciones(0);
+        for (Student est : studentList) {
+            est.setParticipations(0);
         }
     }
 }
