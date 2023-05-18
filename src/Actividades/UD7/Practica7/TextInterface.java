@@ -59,14 +59,16 @@ public class TextInterface {
                 break;
             case 4:
                 resetToZero();
-                System.out.println("Todas las participaciones han sido reiniciadas a 0.");
+                System.out.println("Todas las participaciones han sido reiniciadas a 0." + "\n");
                 break;
             case 5:
-                System.out.println(studentList);
+                List<Student> listForDisplay = studentList;
+                listForDisplay.remove(0);
+                System.out.println(listForDisplay + "\n");
             case 6:
+                System.out.println("Saliendo...");
                 break;
         }
-
     }
 
     public void importXML(String filePath) throws IOException, SAXException, ParserConfigurationException {
@@ -88,7 +90,7 @@ public class TextInterface {
             }
         }
         if (!studentList.isEmpty()) {
-            System.out.println("Documento importado con éxito.");
+            System.out.println("Documento importado con éxito." + "\n");
         }
 
 
@@ -129,7 +131,7 @@ public class TextInterface {
 
         transformer.transform(domSource, result);
 
-        System.out.println("Exportación exitosa!");
+        System.out.println("Exportación exitosa." + "\n");
     }
 
     public void selectStudent() {
@@ -138,18 +140,18 @@ public class TextInterface {
         //  menor. En caso de empate, seleccionar aleatoriamente.
         try {
             studentList.sort(Student::compareTo);
-            ListIterator<Student> lit = studentList.listIterator();
-            while (lit.hasNext()) {
-                if (!lit.next().getCanParticipate()) {
+            Iterator<Student> it = studentList.iterator();
+            while (it.hasNext()) {
+                if (!it.next().getCanParticipate()) {
                     continue;
                 }
                 System.out.print("El alumno seleccionado es: ");
-                Student candidate = lit.next();
+                Student candidate = it.next();
                 System.out.println(candidate.getName());
                 System.out.println("¿Este estudiante puede participar? (S/N)");
                 String reply = scanner.next();
                 if (reply.equalsIgnoreCase("S")) {
-                    System.out.println("Entendido. Se le dará un punto de participación al alumno seleccionado.");
+                    System.out.println("Entendido. Se le dará un punto de participación al alumno seleccionado." + "\n");
                     candidate.setParticipations(candidate.getParticipations() + 1);
                     studentList.sort(Student::compareTo);
                     break;

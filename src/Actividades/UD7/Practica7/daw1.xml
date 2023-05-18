@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <daw1>
     <alumno>
+        <nombre>nombre</nombre>
+        <intervenciones>0</intervenciones>
+    </alumno>
+    <alumno>
         <nombre>Víctor</nombre>
         <intervenciones>0</intervenciones>
     </alumno>
