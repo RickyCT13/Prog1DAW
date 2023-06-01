@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Prog 1DAW:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Prog_1DAW_jar</output-path>
+    <root id="archive" name="Prog 1DAW.jar">
+      <element id="module-output" name="Prog 1DAW" />
+    </root>
+  </artifact>
+</component>
