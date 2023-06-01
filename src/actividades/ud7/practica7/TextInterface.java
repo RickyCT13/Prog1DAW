@@ -120,18 +120,6 @@ public class TextInterface {
             intervenciones.appendChild(document.createTextNode(String.valueOf(est.getParticipations())));
             daw1.appendChild(intervenciones);
         }
-
-        DOMSource domSource = new DOMSource(document);
-
-        StreamResult result = new StreamResult(new File(filePath));
-
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-        transformer.transform(domSource, result);
-
-        System.out.println("Exportación exitosa." + "\n");
     }
 
     public void selectStudent() {
