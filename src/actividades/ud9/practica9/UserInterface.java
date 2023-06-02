@@ -30,7 +30,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class UserInterface {
-    private List<Student> studentList;
+    private static List<Student> studentList;
+    private static Student candidate;
     public void start() {
         JFrame mainFrame = new JFrame("Interfaz Práctica");
         JPanel panel = new JPanel();
@@ -43,6 +44,7 @@ public class UserInterface {
                 resetButton = new JButton("Reiniciar todas las participaciones a 0"),
                 exitButton = new JButton("Salir del programa");
         exitButton.setForeground(Color.red);
+        importButton.setSize(20, 20);
         panel.add(welcomeOptions);
         panel.add(importButton);
         panel.add(exportButton);
@@ -151,11 +153,6 @@ public class UserInterface {
                 studentList.add(new Student(name, participations));
             }
         }
-        if (!studentList.isEmpty()) {
-            System.out.println("Documento importado con éxito." + "\n");
-        }
-
-
     }
 
     public void exportXML(String filePath) throws ParserConfigurationException, TransformerException {
@@ -206,7 +203,7 @@ public class UserInterface {
                 if (!it.next().getCanParticipate()) {
                     continue;
                 }
-                Student candidate = it.next();
+                candidate = it.next();
                 String[] options = {"Sí", "No"};
                 int input = JOptionPane.showOptionDialog(null,
                         "El alumno seleccionado es: " + candidate.getName() + "\n" +
@@ -220,12 +217,19 @@ public class UserInterface {
                     break;
                 }
                 else if (input == JOptionPane.NO_OPTION) {
-                    candidate.setCanParticipate(false);
                     JOptionPane.showMessageDialog(null,
                             "No se tendrá en cuenta al alumno por el resto de la clase.",
                             "Selección de estudiante", JOptionPane.INFORMATION_MESSAGE);
-                    selectStudent();
+                    candidate.setCanParticipate(false);
+                    input = JOptionPane.showOptionDialog(null,
+                            "¿Quiere seleccionar a otro alumno?", "Selección de estudiante",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                    if (input == JOptionPane.YES_OPTION) {
+                        selectStudent();
+                    }
+                    break;
                 }
+                else break;
             }
         }
         catch (NoSuchElementException end) {
