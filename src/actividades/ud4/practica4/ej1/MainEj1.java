@@ -31,14 +31,14 @@ public class MainEj1 {
 
     public static Geometry[] paintFirstOfType(Geometry[] geometries) {
         Geometry[] cloned = geometries.clone();
-        Class currentClass = cloned[0].getClass();
-        cloned[0].paint("Blue");
+        Geometry currentClass = cloned[0];
+        ((Circle)cloned[0]).paint("Blue");
         for (Geometry g:
              cloned) {
-            if (g.getClass() != currentClass) {
-                currentClass = g.getClass();
-                g.paint("Blue");
-            }
+//            if (g.getClass() != currentClass) {
+//                currentClass = g.getClass();
+//                g.paint("Blue");
+//            }
         }
         return cloned;
     }

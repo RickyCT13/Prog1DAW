@@ -3,7 +3,7 @@ package actividades.ud4.practica4.ej1;
 import java.security.InvalidParameterException;
 import java.util.Objects;
 
-public class Triangle extends Geometry {
+public class Triangle extends Geometry implements Paintable {
     private Double base, height;
     private Double[] sides;
     private String color;

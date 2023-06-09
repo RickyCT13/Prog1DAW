@@ -1,6 +1,6 @@
 package actividades.ud4.practica4.ej1;
 
-public class Square extends Geometry {
+public class Square extends Geometry implements Paintable {
     private Double sideLength;
     private String color;
 

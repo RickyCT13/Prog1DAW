@@ -4,7 +4,7 @@ package actividades.ud7.practica7;
 public class Student implements Comparable {
     private String name;
     private int participations;
-    private boolean canParticipate = true;
+    private Boolean canParticipate = true;
 
     public Student() {}
 
@@ -21,7 +21,7 @@ public class Student implements Comparable {
         return participations;
     }
 
-    public boolean getCanParticipate() {
+    public Boolean getCanParticipate() {
         return canParticipate;
     }
 
@@ -33,14 +33,14 @@ public class Student implements Comparable {
         this.participations = participations;
     }
 
-    public void setCanParticipate(boolean canParticipate) {
+    public void setCanParticipate(Boolean canParticipate) {
         this.canParticipate = canParticipate;
     }
 
 
     @Override
     public String toString() {
-        return "\n" + "Alumno: " + name + "\n" +
+        return "\n" + "Alumno: " + name + "\n " +
                 "Intervenciones: " + participations;
     }
 

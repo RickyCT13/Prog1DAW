@@ -1,6 +1,6 @@
 package actividades.ud4.practica4.ej1;
 
-public class Circle extends Geometry {
+public class Circle extends Geometry implements Paintable {
     private Double radius;
     private String color;
 
